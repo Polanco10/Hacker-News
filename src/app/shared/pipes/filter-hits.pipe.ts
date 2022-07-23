@@ -6,7 +6,6 @@ import { Ihits } from 'src/app/modules/news/models/news.models';
 })
 export class FilterHitsPipe implements PipeTransform {
     transform(hits: Ihits[]) {
-        console.log(hits.filter(hits => hits.author && hits.story_title && hits.story_url && hits.created_at))
         return hits.filter(hits => hits.author && hits.story_title && hits.story_url && hits.created_at)
     }
 }

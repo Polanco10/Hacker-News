@@ -1,9 +1,24 @@
 # HackerNews
- 
-TODO: hacer el readme
-TODO: arreglar el select por default y que se setee por query
-TODO: arreglar paginacion para que parta del 1 y que muestre solo 8
-TODO: arreglar css, styles dentro del html y hacer un css general
-TODO: hacer los test
-TODO: agregar el icono en el select
-TODO: hacerlo responsive
+
+Pequeña web responsive, desarrollada en angular y desplegada en netlify.
+
+## Comenzando 🚀
+
+### Pre-requisitos 📋
+
+_Instalar modulos de dependencia._
+
+```
+npm install
+```
+
+## Develpment mode ⚙️
+
+_Para lograr ejecutar la aplicacion de modo local, se debe ejecutar el siguiente comando:_
+```
+ng serve
+```
+
+## Licencia 📄
+
+Este proyecto esta desplegado en un servidor netlify. https://hacker-news-dp.netlify.app/

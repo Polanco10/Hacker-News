@@ -3,7 +3,8 @@
         <li>
             <button aria-label="Go To Previous Page" [attr.aria-disabled]="current === 1" [disabled]="current === 1"
                 (click)="onPrevious()">
-                Previous
+                <fa-icon [icon]="faAngleLeft" [border]="false"></fa-icon>
+
             </button>
         </li>
         <li *ngFor="let page of pages;">
@@ -18,7 +19,7 @@
         <li>
             <button aria-label="Go To Next Page" [attr.aria-disabled]="current === total" [disabled]="current === total"
                 (click)="onNext()">
-                Next
+                <fa-icon [icon]="faAngleRight" [border]="false"></fa-icon>
             </button>
         </li>
     </ul>

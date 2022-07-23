@@ -28,14 +28,14 @@ a {
     cursor: pointer;
     width: 38px;
     line-height: 38px;
-    border-radius: 4px;
     text-align: center;
     font-size: 18px;
+    border-radius: 6px;
+    border: solid 1px #d9d9d9;
 }
 
-a.current,
-a:not(.more):hover {
-    background-color: #007acc;
+a.current {
+    background-color: #1890ff;
     color: #fff;
     font-weight: 700;
 }
@@ -47,25 +47,15 @@ a.current {
 }
 
 button {
-    background-color: #e9ecef;
-    border: none;
+    background-color: #fff;
+    border-radius: 6px;
+    border: solid 1px #d9d9d9;
     cursor: pointer;
     display: grid;
     place-items: center;
     font-size: 18px;
-    border-radius: 4px;
-    color: #007acc;
+    color: #1890ff;
     padding: 8px 16px;
-}
 
-button[disabled] {
-    cursor: default;
-    color: #212529;
-}
 
-button:not([disabled]):hover {
-    background-color: #007acc;
-    color: #fff;
-    cursor: pointer;
-    outline: none;
 }

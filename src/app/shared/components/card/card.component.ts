@@ -26,15 +26,19 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initVariables()
+    this.convertTime()
+    this.initFavorites()
+
+  }
+  initVariables() {
     this.author = this.hit.author
     this.story_title = this.hit.story_title
     this.story_url = this.hit.story_url
     this.created_at = this.hit.created_at
-    this.convertTime()
-    this.setFavorites()
-
   }
-  favItem() {
+
+  toggleFavItem() {
     if (this.icon == fasHeart) { //is favorite
       this.icon = faHeart
       if (this.isOnFavorites() === -1) {
@@ -59,7 +63,7 @@ export class CardComponent implements OnInit {
       this.timeAgo = `${hours} hours ago by`
     }
     if (hours > 24) {
-      let days = hours / 24
+      let days = Math.floor(hours / 24)
       this.timeAgo = `${days} days ago by`
     }
   }
@@ -67,7 +71,8 @@ export class CardComponent implements OnInit {
   isOnFavorites() {
     return this.favorites.findIndex(el => el.objectID === this.hit.objectID)
   }
-  setFavorites() {
+
+  initFavorites() {
     let favStorage = localStorage.getItem('favorites')
     if (favStorage) this.favorites = JSON.parse(favStorage)
     let index = this.isOnFavorites()

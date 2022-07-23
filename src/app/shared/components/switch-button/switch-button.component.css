@@ -23,7 +23,8 @@
     height: 31px;
     padding: 3px 39px 0 40px;
     border-radius: 2px;
-    border: solid 1px #d6d6d6
+    border: solid 1px #d6d6d6;
+    padding: 0.5rem 3rem;
 }
 
 .switch-field label:hover {
@@ -45,3 +46,5 @@
     color: #1797ff;
 
 }
+
+@media only screen and (max-width: 50em) {}

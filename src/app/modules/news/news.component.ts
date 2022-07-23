@@ -2,35 +2,39 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Iitem } from 'src/app/shared/components/select/select.component';
-import { Ihits, INews } from './models/news.models';
+import { FilterHitsPipe } from 'src/app/shared/pipes/filter-hits.pipe';
+import { Ihits } from './models/news.models';
 import { NewsService } from './services/news.service';
+
+export interface IUrlParam {
+  query: string,
+  page: number
+}
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css']
 })
+
 export class NewsComponent implements OnDestroy {
-  currentUrl: string = "";
-  currentPage = 0;
-  viewPage = this.currentPage + 1
-  items: any[] = [];
-  itemsToDisplay: string[] = [];
+  currentServerPage = 0; // to call pages from 0 to 49
+  currentVisualPage = 1; // to handle pages from 1 to 50
   hits!: Ihits[]
-  perPage = 10;
   totalPages: number = 1 //number of pages
   newsSub: Subscription = Subscription.EMPTY;
-  query: string = 'angular' //TODO: cambiar angular 
+  query: string = ''
 
-  constructor(private newsService: NewsService, private router: Router, private route: ActivatedRoute) {
-    let urlParam = localStorage.getItem('params')
-    if (urlParam) {
-      let jsonUrlParam = JSON.parse(urlParam)
-      this.currentPage = jsonUrlParam.page
+  constructor(private newsService: NewsService, private filterHitsPipe: FilterHitsPipe, private router: Router, private route: ActivatedRoute) {
+    let urlParamLocal = localStorage.getItem('params')
+    if (urlParamLocal) {
+      let jsonUrlParam = JSON.parse(urlParamLocal)
+      this.currentVisualPage = jsonUrlParam.page
+      this.currentServerPage = this.currentVisualPage - 1
       this.query = jsonUrlParam.query
     }
-    this.getNews({ query: this.query, page: this.currentPage })
 
+    this.handleQuery()
 
   }
 
@@ -38,23 +42,21 @@ export class NewsComponent implements OnDestroy {
     this.newsSub.unsubscribe()
   }
   public onGoTo(page: number): void {
-    this.currentPage = page;
+    this.currentVisualPage = page;
+    this.currentServerPage = page - 1
     this.handleQuery()
   }
 
   public onNext(page: number): void {
-    this.currentPage = page + 1;
+    this.currentVisualPage = page + 1;
+    this.currentServerPage = page
     this.handleQuery()
   }
 
   public onPrevious(page: number): void {
-    this.currentPage = page - 1;
+    this.currentVisualPage = page - 1;
+    this.currentServerPage = page - 2
     this.handleQuery()
-  }
-
-  public paginate(currentPage: number, perPage: number): string[] {
-    console.log(this.items)
-    return [...this.items.slice((currentPage - 1) * perPage).slice(0, perPage)];
   }
 
   public onSelect(item: Iitem) {
@@ -66,20 +68,18 @@ export class NewsComponent implements OnDestroy {
     this.router.navigate(['.'], { relativeTo: this.route, queryParams });
   }
 
-  getNews(params: any) {
+  getNews(params: IUrlParam) {
+    this.hits = []
     this.newsSub = this.newsService.getNews(params).subscribe(res => {
-      this.hits = res.hits
+      this.hits = this.filterHitsPipe.transform(res.hits).slice(0, 8)
       this.totalPages = res.nbPages
-      this.perPage = res.hitsPerPage
-      this.items = res.hits
-      this.itemsToDisplay = this.paginate(this.currentPage, this.perPage);
     })
   }
 
   handleQuery() {
-    this.getNews({ query: this.query, page: this.currentPage })
-    this.changeQuery({ query: this.query, page: this.currentPage })
-    localStorage.setItem('params', JSON.stringify({ query: this.query, page: this.currentPage }));
+    this.getNews({ query: this.query, page: this.currentServerPage })
+    this.changeQuery({ query: this.query, page: this.currentVisualPage })
+    localStorage.setItem('params', JSON.stringify({ query: this.query, page: this.currentVisualPage }));
   }
 
   onFavSelected(selectedButton: string) {
@@ -87,12 +87,9 @@ export class NewsComponent implements OnDestroy {
       this.handleQuery()
     } else {
       let favorites = localStorage.getItem('favorites')
-      this.items = []
-      this.itemsToDisplay = []
       this.hits = []
       if (favorites) {
         this.hits = JSON.parse(favorites).map((el: Ihits) => { return { ...el, created_at: new Date(el.created_at) } })
-        this.items = this.hits
       }
     }
   }

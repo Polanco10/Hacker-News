@@ -7,6 +7,8 @@ import {
   SimpleChanges,
 } from "@angular/core";
 
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-paginator',
@@ -23,6 +25,8 @@ export class PaginatorComponent implements OnChanges {
   @Output() previous: EventEmitter<number> = new EventEmitter<number>();
 
   public pages: number[] = [];
+  faAngleLeft = faAngleLeft
+  faAngleRight = faAngleRight
 
   ngOnChanges(changes: SimpleChanges): void {
     if (

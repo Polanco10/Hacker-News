@@ -1,4 +1,6 @@
 <select name="select" [ngModel]="selected" (ngModelChange)="onChange($event)">
+    <option value='-1'>{{"Select your news"}}</option>
+
     <option [ngValue]="item" *ngFor="let item of items">
         <div>
             {{item.name}}

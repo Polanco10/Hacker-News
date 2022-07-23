@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { faReact } from '@fortawesome/free-brands-svg-icons'
 
 export interface Iitem {
@@ -15,13 +15,20 @@ export interface Iitem {
 })
 export class SelectComponent implements OnInit {
   items: Iitem[] = [{ name: 'Angular', value: 'angular', icon: faReact }, { name: 'Reacts', value: 'reactjs', icon: faReact }, { name: 'Vuejs', value: 'vuejs', icon: faReact }];
-  selected: Iitem = this.items[0]
+  selected: Iitem | number = -1
 
   @Output() itemSelected: EventEmitter<Iitem> = new EventEmitter<Iitem>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    let urlParam = localStorage.getItem('params')
+    if (urlParam) {
+      let query = JSON.parse(urlParam).query
+      let item = this.items.find((el: Iitem) => el.value === query)
+      this.selected = item ? item : -1
+    }
   }
   public onChange(item: Iitem): void {
     this.selected = item

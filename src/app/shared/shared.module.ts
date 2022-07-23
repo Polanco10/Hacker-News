@@ -21,7 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     CommonModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
 
   ],
   exports: [
@@ -30,6 +30,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CardComponent,
     PaginatorComponent,
     FilterHitsPipe
-  ]
+  ],
+  providers: [FilterHitsPipe]
 })
 export class SharedModule { }
