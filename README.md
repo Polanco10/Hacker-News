@@ -19,6 +19,6 @@ _Para lograr ejecutar la aplicacion de modo local, se debe ejecutar el siguiente
 ng serve
 ```
 
-## Licencia 📄
+## Despliegue 📄
 
 Este proyecto esta desplegado en un servidor netlify. https://hacker-news-dp.netlify.app/
