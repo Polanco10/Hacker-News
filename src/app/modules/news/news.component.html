@@ -1,0 +1,11 @@
+<div style="display:flex; flex-direction:column">
+    <app-switch-button style="display: flex;justify-content: center;" (favSelected)="onFavSelected($event)">
+    </app-switch-button>
+    <app-select style="margin: 1rem 5rem;" (itemSelected)="onSelect($event)"></app-select>
+    <div *ngIf="hits"
+        style="display: grid;  grid-template-columns: repeat(2, 1fr);grid-gap: 10px;  grid-auto-rows: minmax(100px, auto);">
+        <app-card *ngFor="let hit of (hits | filterHits)" [hit]="hit"></app-card>
+    </div>
+    <app-paginator style="display: flex; justify-content:center" [current]="currentPage" [total]="totalPages"
+        (goTo)="onGoTo($event)" (next)="onNext($event)" (previous)="onPrevious($event)"></app-paginator>
+</div>

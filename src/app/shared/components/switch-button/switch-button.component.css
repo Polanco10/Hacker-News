@@ -1,0 +1,47 @@
+.switch-field input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+    width: 65px;
+    height: 28px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: center;
+    color: #606060;
+}
+
+.switch-field label {
+    width: 98px;
+    height: 31px;
+    padding: 3px 39px 0 40px;
+    border-radius: 2px;
+    border: solid 1px #d6d6d6
+}
+
+.switch-field label:hover {
+    cursor: pointer;
+}
+
+.switch-field input:checked+label {
+    width: 19px;
+    height: 28px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    text-align: center;
+    border: solid 1px #1797ff;
+    color: #1797ff;
+
+}

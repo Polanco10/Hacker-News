@@ -1,0 +1,10 @@
+<select name="select" [ngModel]="selected" (ngModelChange)="onChange($event)">
+    <option [ngValue]="item" *ngFor="let item of items">
+        <div>
+            {{item.name}}
+            <fa-icon [icon]=item.icon size="sm" [border]="true">
+            </fa-icon>
+        </div>
+
+    </option>
+</select>
